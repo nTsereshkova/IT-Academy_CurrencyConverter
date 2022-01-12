@@ -188,6 +188,8 @@ body,html {
 .footer {  grid-area: 'footer';
     background:linear-gradient(#595959,black);
     text-align: center;
+    display: flex;
+    justify-content: space-around;
 }
 .footerA {
     text-decoration: none;
@@ -197,6 +199,20 @@ body,html {
     color: #41cd8c;
 }
 
+#calendar {
+    cursor: pointer;
+    background:linear-gradient(white,#e2e2e2);
+    border: 1px solid #595959;
+ 
+}
+
+#calendar:hover {
+    background:linear-gradient(white,darkgrey);
+    outline: none;
+}
+#calendar:active {
+    background-color: #41cd8c;
+}
 
 /* стили для кнопок выхода из системы  */
 #userChoice {

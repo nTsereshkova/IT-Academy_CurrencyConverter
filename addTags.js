@@ -323,7 +323,16 @@ footer.classList.add('text');
             footerPA.setAttribute('href', 'https://www.nbrb.by/statistics/rates/ratesdaily.asp')
             // footerP.append(footerPA)
    footerP.append(`Данные курсов валют взяты с официального сайта Национального банка Республики Беларусь `,footerPA)          
-footer.append(footerP);
+
+
+
+const calendar = createElement('input','calendar','calendar');
+calendar.setAttribute('type', 'date')
+// const todayDate = Date.now()
+// calendar.setAttribute('value',` ${Date.now()}`)
+
+
+footer.append(calendar,footerP);
 
 export {wrapper,header,main,footer,createElement}
 // wrapper.prepend(header,main,footer);

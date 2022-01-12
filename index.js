@@ -32,6 +32,27 @@ try {
     }
 catch { (err) => console.log(err)}
 
+// const input = document.querySelector('#input');
+// console.log(input.value)
+// input.oninput = function (){   
+//     console.log(input.value)     
+// if( input.value=='') {console.log(`sukA`)  
+// console.log(resultConversion.value) 
+//  }   
+//    }   
+
+//Проверка на NaN в поле результат 
+
+// const suka = document.querySelector('.inputField')
+// console.log(`sukA ${suka.value}`)
+// suka.onchange = function() {
+//     console.log(`sukA ${suka.value}`)
+// //     if( isNaN(suka.value)) {suka.textContent =''
+// // }
+// return suka.value
+//   }
+
+
 // теперь  по клику на Привет, UserLogin сделать возможность выхода 
 const login = document.querySelector('#enter');
 login.onclick = function() {
@@ -55,8 +76,30 @@ login.onclick = function() {
 }
 }
     
+const selectedDate = document.querySelector('#calendar')
 
+ selectedDate.oninput = function() {
+     console.log(selectedDate.value)
+     try {
+        const elementUSD=document.querySelector('[data-value = "USD-rate"]');
+        const elementEUR=document.querySelector('[data-value = "EUR-rate"]');
+        const elementRUB=document.querySelector('[data-value = "RUB-rate"]');
+          elementUSD.textContent='';
+          elementEUR.textContent ='';
+          elementRUB.textContent ='';
 
+    //    const selectedDateInput= document.querySelector('.inputField')
+    //     selectedDateInput.value = '';
+
+    //     const selectResultConversion= document.querySelector('#resultConversion');
+    //     selectResultConversion.value = '';
+// попробовать словить тут параметр инпута и прокинуть его в запрос 
+         
+        getFetchURL(selectedDate.value)
+         
+    }
+catch { (err) => console.log(err)}
+ }
 
     // чтоб загрузить форму регистрации сначала можно попробовать динамический импорт 
     // сначала импорт (форма регистрации) .then или через await уже прокидывать остальные теги 

@@ -1,5 +1,5 @@
-export async function getFetchURL (){
-    const request = await fetch('https://www.nbrb.by/api/exrates/rates?periodicity=0')
+export async function getFetchURL (date,q){
+    const request = await fetch(`https://www.nbrb.by/api/exrates/rates?ondate=${date}&periodicity=0`)
     const result  = await request.json();
      console.log(result);
      result[27] = {
@@ -147,22 +147,39 @@ conversionCurrency.onchange = function(){
 console.log
 // это мы ловим количесвто введенной валюты N для функции
      const input = document.querySelector('#input');
-        input.oninput = function (){
-resultConversion.value = (parseFloat (input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)}
+     if (input.value) {resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)}
+     else {resultConversion.value = 0}
+
+
+        input.oninput = function (){  
+
+            if (input.value) {resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)}
+            else {resultConversion.value = 0}
+}
+
     // добавляем слушатель на изменение выбранной валюты 
+
+
      conversionCurrency.oninput = function (){
         getSelectedIndex();
          console.log('Изменили выбранную валюту')
-  
-         resultConversion.value = (parseFloat (input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)};
+         
+         if (input.value) {resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)}
+         else {resultConversion.value = 0}
+        };
 // добавляем слушатель на случай изменения базовой валюты 
+
 
  baseCurrency.oninput = function (){
         getBaseIndex();
          console.log('Изменили выбранную валюту')
   
-         resultConversion.value = (parseFloat (input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)};
 
+         if (input.value) {resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)}
+         else {resultConversion.value = 0}       
+         };
+
+        //  if(input.value==undefined ||input.value==null ) {resultConversion.value = 0}
      // resultConversion.value = ((parseFloat (input.value)*currencyScale[index])/currencyRate[index]).toFixed(2); 
      // изначальный расчет с одноц базовой валютой
 
@@ -175,7 +192,8 @@ resultConversion.value = (parseFloat (input.value)*((currencyScale[index]/curren
 
     console.log('---------------')
      return result;
- }
+ 
+        }
 
 
 
