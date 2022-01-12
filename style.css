@@ -1,0 +1,221 @@
+body,html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    max-width: 1920px;
+    min-height: 100vh;
+    height:100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 100px auto 50px;
+    grid-template-columns: 100%;
+    grid-template-areas: "header"
+                       "main"
+                       "footer";
+    justify-content: space-between;
+    grid-row-gap: 15px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    font-size: 1em;
+}
+.header { background:linear-gradient(#595959,black);
+    grid-area: 'header';
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;}
+
+.header #enter {
+    flex: 0 0 20%;
+    font-size: 1.5rem;
+    height: 30px;
+    margin: 0 20px;
+    width:fit-content;
+    padding: 5px;
+    /* border: 1px solid red; */
+    text-align:end
+}
+#enter:hover{
+    cursor: pointer;
+    color: #41cd8c;
+    /* border:solid 1px #595959;
+    border-radius: 3px; */
+}
+.title {
+    padding: 5px;
+    flex: 0 0 60%;
+    color:darkgrey;
+   }
+
+   .title:hover {
+    color: #41cd8c;
+   }
+
+   .title h1 {
+       font-size: 2em;
+       text-align: center;
+   }
+
+   
+
+.main { color:black; 
+    grid-area:'main';
+    display: grid;
+    grid-template-rows: 100px auto;
+    grid-template-columns: 100%;
+    grid-template-areas: "section"
+                       "colums";
+    grid-row-gap:10px;
+                
+}
+
+.section {
+    grid-area: "section";
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid blue; */
+
+}
+
+.courseBox {
+    flex:0 0 22% ;
+    border: 1px solid darkgrey;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+}
+
+#columns {
+    grid-area: "columns";
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.column {
+    flex: 0 0 auto;
+    margin: 10px;
+    padding: 5px;
+    display: flex;
+     flex-direction: column;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.iHave,.iGet {
+    flex: 0 0 7%;
+    font-size: 1.5rem;
+    margin:0;
+    color: #595959;
+}
+ .currencyAbbr {
+    flex: 0 0 10%;
+     /* display: inline-flex; */
+     width: 60%;
+     border: 1px solid;
+     cursor: pointer;
+}
+/* .currencyAbbr:first-child {
+    border-left:none;
+} */
+.currency {
+    /* width: 85px;
+    height: 40px; */
+    border-radius: 3px;
+    /* margin: 0 auto; */
+    cursor: pointer;
+    text-align: center;
+}
+.currency:first-child {
+    margin-left: 0;
+}
+
+.currency:hover{
+    background-color: #41cd8c; 
+    border: 1px solid #595959;
+    opacity: 0.6;
+}
+ .currency:focus {
+    background-color: #41cd8c; 
+    border: 1px solid #595959;
+}
+.currency:active{
+    background-color: #41cd8c; 
+    border: 1px solid #595959;
+}
+
+.inputField { flex: 0 0 57%;
+    min-height: 25vh;
+    font-size: large;
+    font-weight: bold;
+    border: 1px dotted #595959;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    border-radius: 3px;
+    outline: none;
+    font-size: 2.2rem;
+    text-align: center;
+}
+
+.inputField:focus {
+    border: 1px solid #41cd8c;
+}
+/* .calendar, .saveButton {
+    flex: 0 0 30px;
+    padding: 5px;
+    width: 290px;
+} */
+/* .calendar:hover{
+    background-color: #41cd8c; 
+    border: 1px solid #595959;
+    border-radius: 3px;
+    color: #595959;
+  
+}
+.saveButton:hover{
+    background-color: #41cd8c; 
+    border: 1px solid #595959;
+    border-radius: 3px;
+    color: #595959;
+    
+} */
+
+.text {
+    color:darkgrey;
+}
+
+
+.footer {  grid-area: 'footer';
+    background:linear-gradient(#595959,black);
+    text-align: center;
+}
+.footerA {
+    text-decoration: none;
+    color: inherit;
+}
+.footerA:hover {
+    color: #41cd8c;
+}
+
+
+/* стили для кнопок выхода из системы  */
+#userChoice {
+display: flex;
+
+}
+#yes,#no {
+    padding: 10px;
+    margin: 10px;
+    width: auto;
+    height: auto;
+    outline: none;
+    cursor: pointer;
+    vertical-align: baseline;
+    font-size: 1.2rem;
+}
+
+#yes:hover, #no:hover {
+      border-bottom: 1px solid #41cd8c; 
+      color: #41cd8c ;
+      
+}
