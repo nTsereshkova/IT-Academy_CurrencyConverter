@@ -275,7 +275,7 @@ articleRight.id = 'articleRight';
     // articleRightInput.classList.add('text');
         const articleRightInputField = createElement('input','inputField', 'resultConversion');
         articleRightInputField.setAttribute('type','text')
-        articleRightInputField.setAttribute('placeholder','Сумма после конверсии')
+        // articleRightInputField.setAttribute('placeholder','Сумма после конверсии')
         // articleRightInput.append(articleRightInputField)
 
 

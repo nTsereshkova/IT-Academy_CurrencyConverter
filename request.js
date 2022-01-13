@@ -147,37 +147,83 @@ conversionCurrency.onchange = function(){
 console.log
 // это мы ловим количесвто введенной валюты N для функции
      const input = document.querySelector('#input');
-     if (input.value) {resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)}
-     else {resultConversion.value = 0}
+    //  добавлено для автоматического пересчета  уже введенного содержимого при смене даты 
+     function checkInput () {
+        // убраем пробелы в инпуте если их много 
+        input.value = input.value.trim();
+        if(isNaN (+input.value)  || input.value == '' || input.value == ' ' || input.value == null)  {
+            resultConversion.value = 0
+        } else {
+            resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)
+        }   
+     }
+ 
+     checkInput();
+ // попробовать не вызывать ее здесь, а при срабатывании события смены даты 
+ 
+ // слушатель событий на ввод суммы к переводу 
+input.addEventListener('input',checkInput)
+ 
 
 
-        input.oninput = function (){  
 
-            if (input.value) {resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)}
-            else {resultConversion.value = 0}
-}
+// работающий вариант с oninput 
+        // input.oninput = function (){  
+        //     input.value = input.value.trim();
+        //     if(isNaN (+input.value)  || input.value == '' || input.value == ' ' || input.value == null)  {
+        //         resultConversion.value = 0
+        //     } else {
+        //         resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)
+        //     }
+        // }
+ // Не раюотает проверка на пробелы лишние 
+ // попробовать зпвтра черз тайп оф 
+
+
+    //     if(isNaN (+input.value)  || input.value == '' || input.value == ' ' || input.value == null)  {
+    //         resultConversion.value = 0
+    //     } else {
+    //         resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)
+    //     }
+    // }
+//             if (input.value) {resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)}
+//             else {resultConversion.value = 0}
+// }
 
     // добавляем слушатель на изменение выбранной валюты 
 
-
-     conversionCurrency.oninput = function (){
+    conversionCurrency.addEventListener('input',function(){
         getSelectedIndex();
-         console.log('Изменили выбранную валюту')
+        console.log('Изменили выбранную валюту')
+        checkInput();
+    })
+
+    //  conversionCurrency.oninput = function (){
+    //     getSelectedIndex();
+    //      console.log('Изменили выбранную валюту')
          
-         if (input.value) {resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)}
-         else {resultConversion.value = 0}
-        };
+    //      if (input.value) {resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)}
+    //      else {resultConversion.value = 0}
+    //     };
+
+
+
 // добавляем слушатель на случай изменения базовой валюты 
+baseCurrency.addEventListener('input',function() {
+    getBaseIndex();
+    console.log('Изменили выбранную валюту')
+    checkInput();
 
+})
 
- baseCurrency.oninput = function (){
-        getBaseIndex();
-         console.log('Изменили выбранную валюту')
+//  baseCurrency.oninput = function (){
+//         getBaseIndex();
+//          console.log('Изменили выбранную валюту')
   
 
-         if (input.value) {resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)}
-         else {resultConversion.value = 0}       
-         };
+//          if (input.value) {resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)}
+//          else {resultConversion.value = 0}       
+//          };
 
         //  if(input.value==undefined ||input.value==null ) {resultConversion.value = 0}
      // resultConversion.value = ((parseFloat (input.value)*currencyScale[index])/currencyRate[index]).toFixed(2); 
