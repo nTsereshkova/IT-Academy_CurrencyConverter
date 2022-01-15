@@ -1,7 +1,7 @@
-export async function getFetchURL (date,q){
+export async function getFetchURL (date){
     const request = await fetch(`https://www.nbrb.by/api/exrates/rates?ondate=${date}&periodicity=0`)
     const result  = await request.json();
-     console.log(result);
+    //  console.log(result);
      result[27] = {
         Cur_Abbreviation: "BYN",
         Cur_Name: "Белорусский рубль",
@@ -12,35 +12,25 @@ export async function getFetchURL (date,q){
 
         const currencyAbbrev = result.map(element => {
              return element.Cur_Abbreviation });
-            console.log(currencyAbbrev)
+            // console.log(currencyAbbrev)
 
         const currencyRate = result.map(element => {
         return element.Cur_OfficialRate});
-        console.log(currencyRate)
+        // console.log(currencyRate)
 
         const currencyScale = result.map(element => {
         return element.Cur_Scale});
-        console.log(currencyScale);
+        // console.log(currencyScale);
 
         const currencyName = result.map(element => {
         return element.Cur_Name;});
-        console.log(currencyName);
-// а если оставить этот объект и просто пользоваться деструктуризацией 
-// function getRate(i,N) {
-//     console.log(currencyScale)
-//     const courseConverse = (currencyRate[i]/currencyScale[i]*N).toFixed(2);
-//     console.log(`${ currencyAbbrev[i]}: courseConverse BYN`)
-    
-//     return courseConverse;
-//     }
-    //  const usd = getRate(5,1000)
-    //  console.log(usd)
-// как прокинуть курс в блоки 
+        // console.log(currencyName);
+
+// прокидываю курс в ифнормационные блоки блоки 
 
         const elementUSD=document.querySelector('[data-value = "USD-rate"]');
         const elementEUR=document.querySelector('[data-value = "EUR-rate"]');
         const elementRUB=document.querySelector('[data-value = "RUB-rate"]');
-
 
 // достаю индекс доллара через метод find у массива currencyAbbrev
 // индекс для всех параметров валюты будет одинаков 
@@ -53,7 +43,8 @@ export async function getFetchURL (date,q){
             currencyAbbrev.find((el,index) => {
                 if(el == 'USD') {
                 indexUSD=index
-                console.log(indexUSD)}
+                // console.log(indexUSD)
+            }
                 }) 
                 return indexUSD;
                 };
@@ -64,7 +55,7 @@ export async function getFetchURL (date,q){
                 currencyAbbrev.find((el,index) => {
                     if(el == 'EUR') {
                     indexEUR=index
-                    console.log(indexEUR)
+                    // console.log(indexEUR)
                     }
                      } ) 
                 return indexEUR
@@ -76,7 +67,7 @@ export async function getFetchURL (date,q){
             currencyAbbrev.find((el,index) => {
                 if(el == 'RUB') {
                     indexRUB=index
-                    console.log(indexRUB)
+                    // console.log(indexRUB)
                     }
                     } ) 
             return indexRUB
@@ -89,20 +80,20 @@ export async function getFetchURL (date,q){
         elementRUB. append(`${currencyScale[indexRUB]} ${currencyAbbrev[indexRUB]} = ${currencyRate[indexRUB]} BYN`);
 
 
-// теперь получим количество введенной базовой валюты
+// теперь основной расчет
 
         const resultConversion =  document.querySelector('#resultConversion');
         const conversionCurrency = document.querySelector('#selectedCurrency'); 
         const baseCurrency = document.querySelector('#baseCurrency');
 
-        
+   // достаю  базовый индекс валюты  через метод find у массива currencyAbbrev     
         let baseIndex;
      
          const getBaseIndex = function (){
              currencyAbbrev.find((el,i) => {
                  if( el == baseCurrency.value) {
                      baseIndex= i;
-                    console.log(`base index --------////-----  ${baseIndex}`)
+                    // console.log(`base index --------////-----  ${baseIndex}`)
                     return baseIndex}
                         }) 
                     }
@@ -113,7 +104,7 @@ export async function getFetchURL (date,q){
          getBaseIndex();
            console.log('Изменили базовая валюту')
         };
-
+// добавляем слушатель событий на смену выбранной валюты БАЗОВОЙ
  let baseCurrencyDiv  = document.querySelector('#iHaveCurrency');
   baseCurrencyDiv.innerHTML = `${currencyName[baseIndex]}`
   
@@ -121,21 +112,23 @@ export async function getFetchURL (date,q){
     getBaseIndex();
     baseCurrencyDiv.innerHTML = `${currencyName[baseIndex]}`
   }
-// добавляем слушатель на смену валюты для изменения ее наименования
-        
+
+  // достаю   индекс  Валюты конверсии через метод find у массива currencyAbbrev  
         let index;
         const getSelectedIndex = function (){
         currencyAbbrev.find((el,i) => {
      if( el == conversionCurrency.value) {
             index= i;
-            console.log(` --------////-----  ${index}`)
+            // console.log(` --------////-----  ${index}`)
             return index}
      }) 
 }
-console.log(conversionCurrency.value);
+// console.log(conversionCurrency.value);
 
 getSelectedIndex();
 
+// добавляем слушатель на смену валюты КОНВЕРСИИ 
+        
 let conversionCurrencyDiv  = document.querySelector('#iGetCurrency');
 conversionCurrencyDiv.innerHTML = `${currencyName[index]}`
   
@@ -143,11 +136,12 @@ conversionCurrency.onchange = function(){
     getSelectedIndex();
     conversionCurrencyDiv.innerHTML = `${currencyName[index]}`
   }
-// добавляем слушатель на смену валюты для изменения ее наименования
-console.log
-// это мы ловим количесвто введенной валюты N для функции
+
+// ловим INPUT - сумму к конверсии 
      const input = document.querySelector('#input');
+
     //  добавлено для автоматического пересчета  уже введенного содержимого при смене даты 
+    // ФУНКЦИЯ ПО ПРОВЕРКЕ ВВОДА И ОСУЩЕСТВЛЕНИЮ КОНВЕРСИИ
      function checkInput () {
         // убраем пробелы в инпуте если их много 
         input.value = input.value.trim();
@@ -159,91 +153,27 @@ console.log
      }
  
      checkInput();
- // попробовать не вызывать ее здесь, а при срабатывании события смены даты 
  
  // слушатель событий на ввод суммы к переводу 
 input.addEventListener('input',checkInput)
  
-
-
-
-// работающий вариант с oninput 
-        // input.oninput = function (){  
-        //     input.value = input.value.trim();
-        //     if(isNaN (+input.value)  || input.value == '' || input.value == ' ' || input.value == null)  {
-        //         resultConversion.value = 0
-        //     } else {
-        //         resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)
-        //     }
-        // }
- // Не раюотает проверка на пробелы лишние 
- // попробовать зпвтра черз тайп оф 
-
-
-    //     if(isNaN (+input.value)  || input.value == '' || input.value == ' ' || input.value == null)  {
-    //         resultConversion.value = 0
-    //     } else {
-    //         resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)
-    //     }
-    // }
-//             if (input.value) {resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)}
-//             else {resultConversion.value = 0}
-// }
-
-    // добавляем слушатель на изменение выбранной валюты 
+// добавляем слушатель на изменение выбранной валюты 
 
     conversionCurrency.addEventListener('input',function(){
         getSelectedIndex();
-        console.log('Изменили выбранную валюту')
+        // console.log('Изменили выбранную валюту')
         checkInput();
     })
-
-    //  conversionCurrency.oninput = function (){
-    //     getSelectedIndex();
-    //      console.log('Изменили выбранную валюту')
-         
-    //      if (input.value) {resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)}
-    //      else {resultConversion.value = 0}
-    //     };
-
-
 
 // добавляем слушатель на случай изменения базовой валюты 
 baseCurrency.addEventListener('input',function() {
     getBaseIndex();
-    console.log('Изменили выбранную валюту')
+    // console.log('Изменили выбранную валюту')
     checkInput();
-
-})
-
-//  baseCurrency.oninput = function (){
-//         getBaseIndex();
-//          console.log('Изменили выбранную валюту')
-  
-
-//          if (input.value) {resultConversion.value = (parseFloat(input.value)*((currencyScale[index]/currencyRate[index])/(currencyScale[baseIndex]/currencyRate[baseIndex]))).toFixed(4)}
-//          else {resultConversion.value = 0}       
-//          };
-
-        //  if(input.value==undefined ||input.value==null ) {resultConversion.value = 0}
-     // resultConversion.value = ((parseFloat (input.value)*currencyScale[index])/currencyRate[index]).toFixed(2); 
-     // изначальный расчет с одноц базовой валютой
-
-     // разобраться посему по дефолту Nan и как с этим бороться 
-     // если не введено число, то счиатть количесвто равным нулю 
-     
-     // focus был до этого 
-    // добавить защиту от введения всякой чуши 
-
-
-    console.log('---------------')
+    })
      return result;
- 
-        }
-
-
+}
 
     // запрос открытого API с сайта нацбанка курсов валют 
     // возвращет массив курсов 27 основных валют 
-    //  если делать через async/await то проблема в доступе к массиву курсов и прочим переменным, переделываю на
     

@@ -74,7 +74,7 @@ section.append(courseBox1,courseBox2,courseBox3)
 // порядок аргументов - имя переменной, какой тег, имя класса,имя id
 const courseTitles = ["AUD","AMD","BGN","UAH","DKK","USD","EUR","PLN","JPY","IRR","ISK","CAD","CNY","KWD","MDL","NZD","NOK","RUB",
         "XDR","SGD","KGS","KZT","TRY","GBP","CZK","SEK","CHF","BYN"]
-        console.log(` CorseTitles ${courseTitles}`)
+        // console.log(` CorseTitles ${courseTitles}`)
 
 
 const articleLeft = createElement('article','column')  
@@ -86,8 +86,6 @@ const articleLeft = createElement('article','column')
     articleDiv.classList.add('text');
     // articleDiv.append('Белорусский рубль');
 
-
-    
 // создаю селект 
         const selectLeft = createElement('select','currencyAbbr','baseCurrency');    
             const option1 = createElement('option','currency');
@@ -288,30 +286,6 @@ columns.append(articleLeft,articleRight)
 
 main.append(section,columns);
 
-
-
-
-{/* <article class="column right ">
-<p class="iGet text">Валюта конверсии</p>
-
-<select class="currencyAbbr right"  id="selectedCurrency">
-   <option class="currency" value = "USD">USD</option>
-   <option class="currency" value = "RUB">RUB</option>
-   <option class="currency" value = "EUR">EUR</option>
-   <option class="currency" value = "BYN">BYN</option>
-</select>
-
-<div class="input right text">
-    <input  class= "inputField" id = "resultConversion" type="text" placeholder="Столько к выдаче"> 
-</div>
-<div class="saveButton right text">
-    Сохраните свою конверсию
-</div>
-</article> */}
-
-
-
-
 // создаем footer 
 //  порядок аргументов - имя переменной, какой тег, имя класса,имя id
 const footer =  createElement('footer','footer');
@@ -329,13 +303,9 @@ footer.classList.add('text');
 const calendar = createElement('input','calendar','calendar');
 calendar.setAttribute('type', 'date');
 const todayDate = new Date().toISOString().slice(0,10);
-calendar.setAttribute('max', todayDate)
-calendar.setAttribute('value', todayDate)
-// const todayDate = Date.now()
-// calendar.setAttribute('value'${Date.now()}
-
+calendar.setAttribute('max', todayDate);
+calendar.setAttribute('value', todayDate);
 
 footer.append(calendar,footerP);
 
 export {wrapper,header,main,footer,createElement}
-// wrapper.prepend(header,main,footer);
