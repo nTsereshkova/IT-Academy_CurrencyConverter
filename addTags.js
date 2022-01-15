@@ -327,9 +327,12 @@ footer.classList.add('text');
 
 
 const calendar = createElement('input','calendar','calendar');
-calendar.setAttribute('type', 'date')
+calendar.setAttribute('type', 'date');
+const todayDate = new Date().toISOString().slice(0,10);
+calendar.setAttribute('max', todayDate)
+calendar.setAttribute('value', todayDate)
 // const todayDate = Date.now()
-// calendar.setAttribute('value',` ${Date.now()}`)
+// calendar.setAttribute('value'${Date.now()}
 
 
 footer.append(calendar,footerP);

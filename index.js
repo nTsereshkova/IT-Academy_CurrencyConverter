@@ -96,6 +96,8 @@ const selectedDate = document.querySelector('#calendar')
 // попробовать словить тут параметр инпута и прокинуть его в запрос 
          
         getFetchURL(selectedDate.value)
+
+        
         
     }
 catch { (err) => console.log(err)}
