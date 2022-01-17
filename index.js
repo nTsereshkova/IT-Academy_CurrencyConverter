@@ -1,7 +1,7 @@
 
 import { getFetchURL } from "./request.js";
 import {wrapper,header,main,footer,createElement} from './addTags.js'
-import { body,regForm, buttonSubmit, checkMail,checkPassLenght,checkPass} from './registrationFORM.js'
+import { body,regForm} from './registrationFORM.js'
 
 
 // вставляю форму регистрации в тег body 
